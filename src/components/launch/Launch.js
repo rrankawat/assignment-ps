@@ -10,7 +10,9 @@ const Launch = () => {
 
   useEffect(() => {
     const getLaunches = async () => {
-      const res = await axios.get(`/v3/launches?limit=100`);
+      const res = await axios.get(
+        `https://api.spaceXdata.com/v3/launches?limit=100`
+      );
 
       setLaunches(res.data);
     };
