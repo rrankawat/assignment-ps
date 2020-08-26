@@ -1,10 +1,12 @@
 import React from "react";
+import noimg from "./no-img.png";
 
-const LaunchItem = () => {
+const LaunchItem = ({ launch }) => {
+  console.log(launch);
   return (
     <div className="card">
       <img
-        src="https://image.shutterstock.com/image-vector/picture-vector-icon-no-image-260nw-1350441335.jpg"
+        src={launch.links.mission_patch ? launch.links.mission_patch : noimg}
         alt=""
       />
 
