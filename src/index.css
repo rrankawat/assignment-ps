@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap");
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #f2f2f2;
+  line-height: 1.5;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+/* container */
+.container {
+  padding: 0.3rem 1rem;
+}
+
+/* main */
+.main {
+  display: grid;
+  grid-template-columns: 16rem auto;
+  grid-gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+/* sidebar */
+.sidebar {
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  height: fit-content;
+}
+
+.sidebar h4 {
+  letter-spacing: 1px;
+}
+
+.filter {
+  margin: 0.3rem 1rem 1.2rem;
+}
+
+.filter:last-child {
+  margin-bottom: 3rem;
+}
+
+.filter-name {
+  text-align: center;
+}
+
+.underline {
+  border-top: 1px solid #ccc;
+  margin: 0.2rem 1rem;
+  display: block;
+  text-align: center;
+}
+
+.sidebar .row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.65rem;
+}
+
+.btn {
+  font-size: 0.9rem;
+  display: inline-block;
+  background-color: #c5e09b;
+  padding: 0.1rem 1rem;
+  border-radius: 0.3rem;
+}
+
+.active {
+  background-color: #7cba01;
+}
+
+/* content */
+.content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
+}
+
+.card {
+  background-color: #fff;
+  padding: 1.5rem;
+  height: fit-content;
+  border-radius: 0.5rem;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 0.2rem;
+}
+
+.card h4 {
+  color: #2f5396;
+  font-size: 0.9rem;
+  margin: 0.3rem 0 1rem;
+}
+
+.card ul {
+  margin-left: 1.8rem;
+  color: #2f5396;
+  font-size: 0.9rem;
+}
+
+.card-text {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.7rem 0;
+}
+
+.card-text span {
+  font-size: 0.9rem;
+  color: #8083b2;
+}
+
+/* footer */
+.footer {
+  text-align: center;
+  margin: 2.5rem 0 1rem;
+}
+
+/* small pc */
+@media (max-width: 992px) {
+  .content {
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+  }
+}
+
+/* tablet */
+@media (max-width: 768px) {
+  .main {
+    grid-template-columns: 10.5rem auto;
+  }
+
+  .content {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+  }
+}
+
+/* moblie */
+@media (max-width: 576px) {
+  .main {
+    grid-template-columns: auto;
+  }
+
+  .content {
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 1rem;
+  }
+}

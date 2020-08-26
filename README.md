@@ -2,6 +2,10 @@
 
 > This application help users to list and browse all launches by SpaceX program.
 
+### URL:
+
+    https://assignment-ps.vercel.app/
+
 ### How to run this project:
 
     clone repo
