@@ -2,7 +2,6 @@ import React from "react";
 import noimg from "./no-img.png";
 
 const LaunchItem = ({ launch }) => {
-  console.log(launch);
   return (
     <div className="card">
       <img
