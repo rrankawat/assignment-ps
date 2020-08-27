@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const LaunchFilter = ({ launchFilter }) => {
   const [years, setYears] = useState(null);
-
+  const { search } = useLocation();
   const [filter, setFilter] = useState({
     year: null,
     launch: null,
     landing: null,
   });
 
-  useEffect(() => {
+  const loadYears = () => {
     const years = [
       2006,
       2007,
@@ -34,6 +36,24 @@ const LaunchFilter = ({ launchFilter }) => {
     }
 
     setYears(results);
+  };
+
+  useEffect(() => {
+    loadYears();
+
+    const queryString = new URLSearchParams(search);
+    const launch = queryString.get("launch_success");
+    const landing = queryString.get("land_success");
+    const year = queryString.get("launch_year");
+
+    const urlFilter = {
+      launch: launch !== null ? JSON.parse(launch) : launch,
+      landing: landing !== null ? JSON.parse(landing) : landing,
+      year: year !== null ? JSON.parse(year) : year,
+    };
+    setFilter(urlFilter);
+
+    // eslint-disable-next-line
   }, []);
 
   const launchYear = (e, y) => {
@@ -74,6 +94,8 @@ const LaunchFilter = ({ launchFilter }) => {
     };
     launchFilter(data);
   };
+
+  console.log();
 
   return (
     <aside className="sidebar">
@@ -157,6 +179,10 @@ const LaunchFilter = ({ launchFilter }) => {
       </div>
     </aside>
   );
+};
+
+LaunchFilter.propTypes = {
+  launchFilter: PropTypes.func.isRequired,
 };
 
 export default LaunchFilter;

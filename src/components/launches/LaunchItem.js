@@ -1,40 +1,51 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Img from "react-cool-img";
 import loadingImage from "./loading.gif";
 import noimg from "./no-img.png";
 
 const LaunchItem = ({ launch }) => {
+  const {
+    links,
+    mission_name,
+    flight_number,
+    mission_id,
+    launch_year,
+    launch_success,
+    rocket,
+  } = launch;
+
   return (
     <div className="card">
       <Img
         placeholder={loadingImage}
-        src={launch.links.mission_patch ? launch.links.mission_patch : noimg}
-        alt={launch.mission_name}
+        src={links.mission_patch ? links.mission_patch : noimg}
+        alt={mission_name}
       />
 
       <h4>
-        {launch.mission_name} #{launch.flight_number}
+        {mission_name} #{flight_number}
       </h4>
 
       <h5>Mission Ids:</h5>
       <ul>
-        {launch.mission_id.map((item, i) => (
+        {mission_id.map((item, i) => (
           <li key={i}>{item}</li>
         ))}
       </ul>
 
       <div className="card-text">
         <h5>Launch Year:</h5>
-        <span>{launch.launch_year}</span>
+        <span>{launch_year}</span>
       </div>
       <div className="card-text">
         <h5>Successful Launch:</h5>
-        <span>{launch.launch_success ? "true" : "false"}</span>
+        <span>{launch_success ? "true" : "false"}</span>
       </div>
 
       <h5>Successful Landing:</h5>
       <ul>
-        {launch.rocket.first_stage.cores.map(
+        {rocket.first_stage.cores.map(
           (item, i) =>
             item.land_success !== null && (
               <li key={i}>
@@ -45,6 +56,10 @@ const LaunchItem = ({ launch }) => {
       </ul>
     </div>
   );
+};
+
+LaunchItem.propTypes = {
+  launch: PropTypes.object.isRequired,
 };
 
 export default LaunchItem;

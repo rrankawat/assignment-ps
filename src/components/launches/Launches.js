@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import LaunchFilter from "./LaunchFilter";
@@ -7,32 +8,70 @@ import Spinner from "../layout/spinner/Spinner";
 
 const Launches = () => {
   const [launches, setLaunches] = useState(null);
+  const history = useHistory();
+  const { search } = useLocation();
+
+  const loadDefault = async () => {
+    const res = await axios.get(
+      `https://api.spaceXdata.com/v3/launches?limit=100`
+    );
+    setLaunches(res.data);
+  };
+
+  const loadFromURL = async (launch, landing, year) => {
+    const query = getQuery(launch, landing, year);
+
+    let url = `https://api.spaceXdata.com/v3/launches?limit=100&${query.join(
+      "&"
+    )}`;
+    const res = await axios.get(url);
+    setLaunches(res.data);
+  };
 
   useEffect(() => {
-    const getLaunches = async () => {
-      const res = await axios.get(
-        `https://api.spaceXdata.com/v3/launches?limit=100`
-      );
+    const queryString = new URLSearchParams(search);
+    const launch = queryString.get("launch_success");
+    const landing = queryString.get("land_success");
+    const year = queryString.get("launch_year");
 
-      setLaunches(res.data);
-    };
+    if (launch !== null || landing !== null || year !== null) {
+      loadFromURL(launch, landing, year);
+    } else {
+      loadDefault();
+    }
 
-    getLaunches();
+    // eslint-disable-next-line
   }, []);
+
+  const getQuery = (launch, landing, year) => {
+    const query = [];
+
+    if (launch !== null) {
+      query.push(`launch_success=${launch}`);
+    }
+    if (landing !== null) {
+      query.push(`land_success=${landing}`);
+    }
+    if (year !== null) {
+      query.push(`launch_year=${year}`);
+    }
+
+    return query;
+  };
 
   const launchFilter = async (filter) => {
     setLaunches(null);
 
-    const launch_year =
-      filter.year !== null ? `&launch_year=${filter.year}` : "";
-    const launch_success =
-      filter.launch !== null ? `&launch_success=${filter.launch}` : "";
-    const land_success =
-      filter.landing !== null ? `&land_success=${filter.landing}` : "";
+    const query = getQuery(filter.launch, filter.landing, filter.year);
 
-    let url = `https://api.spaceXdata.com/v3/launches?limit=100${launch_success}${land_success}${launch_year}`;
-
+    let url = `https://api.spaceXdata.com/v3/launches?limit=100&${query.join(
+      "&"
+    )}`;
     const res = await axios.get(url);
+
+    // update url
+    history.push(`/?${query.join("&")}`);
+
     setLaunches(res.data);
   };
 
