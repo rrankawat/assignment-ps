@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 
 import LaunchFilter from "./LaunchFilter";
@@ -41,12 +41,17 @@ const Launches = () => {
       <LaunchFilter launchFilter={launchFilter} />
 
       {launches ? (
-        <section className="content">
-          {launches.length > 0 &&
-            launches.map((launch) => (
-              <LaunchItem key={launch.flight_number} launch={launch} />
-            ))}
-        </section>
+        <Fragment>
+          {launches.length > 0 ? (
+            <section className="content">
+              {launches.map((launch) => (
+                <LaunchItem key={launch.flight_number} launch={launch} />
+              ))}
+            </section>
+          ) : (
+            <div className="no-data">No data to display</div>
+          )}
+        </Fragment>
       ) : (
         <Spinner />
       )}
