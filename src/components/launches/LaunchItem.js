@@ -1,10 +1,13 @@
 import React from "react";
+import Img from "react-cool-img";
+import loadingImage from "./loading.gif";
 import noimg from "./no-img.png";
 
 const LaunchItem = ({ launch }) => {
   return (
     <div className="card">
-      <img
+      <Img
+        placeholder={loadingImage}
         src={launch.links.mission_patch ? launch.links.mission_patch : noimg}
         alt={launch.mission_name}
       />

@@ -91,13 +91,13 @@ a {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 1rem;
+  align-content: baseline;
 }
 
 .card {
   background-color: #fff;
   padding: 1.5rem;
   border-radius: 0.5rem;
-  min-height: fit-content;
 }
 
 .card img {
